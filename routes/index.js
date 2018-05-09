@@ -33,6 +33,21 @@ router.get('/search',function(req,res,next){
     });
 });
 
+router.get('/age/:min&:max',function(req,res,next){
+    var mn = req.params.min;
+    var mx = req.params.max;
+    var successMsg = req.flash('success')[0];
+    console.log((2018-mn)+"  "+(2018-mx));
+    Product.find({year: { $gt: (2018-mx), $lt: (2019-mn) }},function (err, docs) {
+        var productChunks = [];
+        var chunkSize = 3;
+        for (var i = 0; i < docs.length; i += chunkSize) {
+            productChunks.push(docs.slice(i, i + chunkSize));
+        }
+        res.render('shop/index', {title: 'Sail Along', products: productChunks, successMsg: successMsg, noMessages: !successMsg});
+    });
+});
+
 
 
 
