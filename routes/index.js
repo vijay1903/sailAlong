@@ -143,7 +143,7 @@ router.post('/checkout', isLoggedIn, function(req, res, next) {
     var cart = new Cart(req.session.cart);
     
     var stripe = require("stripe")(
-        "sk_live_3Rl1MvlcnBH7zKg6UgP0cr1d"
+        "sk_live_3Rl1MvlcnBH7zKg6UgP0****"
     );
     // PAYMENT NOT WORKING
     stripe.createSource({
