@@ -5,21 +5,21 @@ var passport = require('passport');
 
 var Order = require('../models/order');
 var Cart = require('../models/cart');
+var User = require('../models/user');
 
 var csrfProtection = csrf();
 router.use(csrfProtection);
 
 router.get('/profile', isLoggedIn, function (req, res, next) {
-    Order.find({user: req.user}, function(err, orders) {
+    // console.log(req.user.email);
+    User.find({'email': req.user.email}, function (err, user) {
         if (err) {
-            return res.write('Error!');
+            return done(err);
         }
-        var cart;
-        orders.forEach(function(order) {
-            cart = new Cart(order.cart);
-            order.items = cart.generateArray();
-        });
-        res.render('user/profile', { orders: orders });
+        if (user.length == 1) {
+            console.log(user[0].email);   
+            res.render('user/profile', { userDetail: user[0] });
+        } 
     });
 });
 

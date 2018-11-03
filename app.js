@@ -24,7 +24,9 @@ var app = express();
 /* For Redis*/
 var mongooseRedisCache = require("mongoose-redis-cache");
 
-mongoose.connect('MongoDB://localhost:27017/shopping');
+// mongoose.connect('MongoDB://localhost:27017/shopping');
+mongoose.connect('mongodb://webuser:Pass1234@ds157682.mlab.com:57682/sail-along-mongodb');
+
 require('./config/passport');
 
 // view engine setup
