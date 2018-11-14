@@ -25,8 +25,11 @@ var app = express();
 var mongooseRedisCache = require("mongoose-redis-cache");
 
 // mongoose.connect('MongoDB://localhost:27017/shopping');
-mongoose.connect('mongodb://webuser:Pass1234@ds157682.mlab.com:57682/sail-along-mongodb');
-
+mongoose.connect('mongodb://webuser:Pass1234@ds157682.mlab.com:57682/sail-along-mongodb',{ useNewUrlParser: true });
+// console.log(mongoose.connection.readyState);
+mongoose.connection.on('connected', function(){
+  console.log("Connected to MongoDB.");
+});
 require('./config/passport');
 
 // view engine setup
@@ -91,6 +94,6 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
+console.log("Listening on port: 3000");
 
 module.exports = app;
